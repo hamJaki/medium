@@ -1,35 +1,43 @@
 import React from 'react';
 import Link from 'next/link';
 
-type Post = {
+type Product = {
     id: number;
     title: string;
-    body: string;
-    userId: number;
-    tags: string[];
-    reactions: {
-        likes: number;
-        dislikes: number;
+    price: number;
+    description: string;
+    category: {
+        id: number;
+        image: string;
+        name: string;
     };
 };
 
-type PostListProps = {
-    posts: Post[];
+type ProductListProps = {
+    products: Product[];
 };
 
-const PostList: React.FC<PostListProps> = ({ posts }) => {
+const ProductList: React.FC<ProductListProps> = ({ products }) => {
+    if (!products || products.length === 0) {
+        return <div>No products available</div>;
+    }
+
     return (
-        <div className="post-list">
-            {posts.map((post) => (
-                <div key={post.id} className="post">
+        <div className="product-list">
+            {products.map((product) => (
+                <div key={product.id} className="product">
                     <h2>
-                        <Link href={`/posts/${post.id}`}>{post.title}</Link>
+                        <Link href={`/app/${product.id}`}>
+                            {product.title}
+                        </Link>
                     </h2>
-                    <p>{post.body}</p>
+                    <img src={product.category.image} alt={product.title} />
+                    <p>{product.description}</p>
+                    <p>Price: {product.price}</p>
                 </div>
             ))}
         </div>
     );
 };
 
-export default PostList;
+export default ProductList;
