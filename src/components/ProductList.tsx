@@ -27,7 +27,7 @@ const ProductList: React.FC<ProductListProps> = ({ products }) => {
             {products.map((product) => (
                 <div key={product.id} className="product">
                     <h2>
-                        <Link href={`/app/${product.id}`}>
+                        <Link href={`/${product.id}`}>
                             {product.title}
                         </Link>
                     </h2>
